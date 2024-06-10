@@ -114,7 +114,7 @@
       const selectedCategory = document.getElementById('categorySelect').options[document.getElementById('categorySelect').selectedIndex].text;
       data['category'] = selectedCategory;
 
-      const requestUrl = 'http://localhost:8080/problem/create';
+      const requestUrl = 'https://jat.acsify.com/problem/create';
 
       try {
         const response = await fetch(requestUrl, {

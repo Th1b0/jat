@@ -90,7 +90,7 @@ function authorize($db, $id)
 // Database Configuration
 $container->set('db', function () {
     $host = 'localhost'; // Change to your host address
-    $port = '5433'; // Change to your desired port number
+    $port = '5432'; // Change to your desired port number
     $dbname = 'jat';
     $user = 'thibo';
     $pass = 'thibo';

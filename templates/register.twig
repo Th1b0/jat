@@ -94,7 +94,7 @@
 
     const currentUrl = window.location.href;
     const id = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
-    const requestUrl = `http://localhost:8080/auth/register/${id}`;
+    const requestUrl = `https://jat.acsify.com/auth/register/${id}`;
 
     try {
       const response = await fetch(requestUrl, {
