@@ -658,9 +658,31 @@ $app->get('/problems', function (Request $request, Response $response, $args) {
             ]));
             return $response->withHeader('Location', '/report')->withStatus(302);
         }
+
+        $db = $this->get('db');
+        $query = 'SELECT u."id" as user_id, u."surname", u."name", ur."id" as uri_id
+                  FROM "User" u
+                  JOIN "Uri" ur ON u."id" = ur."userid"
+                  WHERE valid = true';
+        $usersWithoutEmail = executeQuery($db, $query, [], true);
         // Fetch problems with proper field names
-        $problems = executeQuery($db, 'SELECT "id", "name", "createdat", "status","description","category" FROM "Problem"', [], true);
-        $totalProblems = count($problems);
+        $problems = executeQuery($db, '
+        SELECT 
+            p."id", 
+            p."name" AS title, 
+            p."createdat", 
+            p."status", 
+            p."description", 
+            p."category", 
+            u."name" AS name, 
+            u."surname"
+        FROM 
+            "Problem" p
+        JOIN 
+            "User" u ON p."creatorid" = u."id"
+    ', [], true);
+    
+    $totalProblems = count($problems);
         // Pass the fetched data to Twig
         $view = $this->get('view');
         return $view->render($response, 'problems.twig', [
