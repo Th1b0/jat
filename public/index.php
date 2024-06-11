@@ -669,7 +669,7 @@ $app->get('/problems', function (Request $request, Response $response, $args) {
         $problems = executeQuery($db, '
         SELECT 
             p."id", 
-            p."name" AS title, 
+            p."name" AS problemtitle, 
             p."createdat", 
             p."status", 
             p."description", 
