@@ -142,7 +142,9 @@
 
   function sortTable(columnIndex) {
     const table = document.querySelector("table");
-    let rows = Array.from(table.rows).slice(1);
+    const tbody = table.querySelector("tbody");
+    let rows = Array.from(tbody.rows);
+
     let dir = "asc";
     if (currentSortColumn === columnIndex) {
       dir = currentSortDirection === "asc" ? "desc" : "asc";
@@ -150,21 +152,19 @@
     currentSortColumn = columnIndex;
     currentSortDirection = dir;
 
-    // Clone rows to preserve their attributes
-    rows = rows.map(row => row.cloneNode(true));
-
     rows.sort((a, b) => {
-      let x = a.getElementsByTagName("TD")[columnIndex];
-      let y = b.getElementsByTagName("TD")[columnIndex];
+      let x = a.getElementsByTagName("TD")[columnIndex].innerText.toLowerCase();
+      let y = b.getElementsByTagName("TD")[columnIndex].innerText.toLowerCase();
       if (columnIndex === 4) { // Status column
         const statuses = ['active', 'halted', 'closed'];
-        return dir === "asc" ? statuses.indexOf(x.innerHTML) - statuses.indexOf(y.innerHTML) : statuses.indexOf(y.innerHTML) - statuses.indexOf(x.innerHTML);
+        return dir === "asc" ? statuses.indexOf(x) - statuses.indexOf(y) : statuses.indexOf(y) - statuses.indexOf(x);
       } else {
-        return dir === "asc" ? x.innerHTML.localeCompare(y.innerHTML) : y.innerHTML.localeCompare(x.innerHTML);
+        return dir === "asc" ? x.localeCompare(y) : y.localeCompare(x);
       }
     });
 
-    rows.forEach(row => table.appendChild(row));
+    // Append sorted rows to the tbody
+    rows.forEach(row => tbody.appendChild(row));
     updateSortIcons();
   }
 
@@ -182,6 +182,7 @@
     });
   }
 </script>
+
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
