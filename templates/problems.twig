@@ -154,7 +154,7 @@
       rows.sort((a, b) => {
         let x = a.getElementsByTagName("TD")[columnIndex].innerText.toLowerCase();
         let y = b.getElementsByTagName("TD")[columnIndex].innerText.toLowerCase();
-        if (columnIndex === 4) { // Status column
+        if (columnIndex === 5) { // Status column
           const statuses = ['active', 'halted', 'closed'];
           return dir === "asc" ? statuses.indexOf(x) - statuses.indexOf(y) : statuses.indexOf(y) - statuses.indexOf(x);
         } else if (columnIndex === 1) { // Date column
