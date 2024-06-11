@@ -86,7 +86,7 @@
               <td>{{ problem.createdat }}</td>
               <td>{{ problem.category }}</td>
               <td>{{ problem.description|slice(0, 24) ~ '...' }}</td>
-              <td>{{ problem.name || problem.surname}}</td>
+              <td>{{ problem.name }} {{problem.surname}}</td>
               <td>
                 <div class="{% if problem.status == 'active' %} marked1  {% endif %} {% if problem.status == 'closed' %} marked2 {% endif %} {% if problem.status == 'halted' %} marked3 {% endif %}">{{ problem.status }}</div>
               </td>
